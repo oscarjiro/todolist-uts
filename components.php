@@ -48,10 +48,10 @@ function navbar($authenticated = true, $active = null)
                     Logout  
                 </a>
         ") : ("
-                <a href=\"login.php\" class=\"nav-link " . ($active === "login" ? "opacity-100" : "") . "\">
+                <a href=\"login.php\" class=\"nav-link " . ($active === "login" ? "text-active glow" : "") . "\">
                     Login
                 </a>
-                <a href=\"register.php\" class=\"nav-link " . ($active === "register" ? "opacity-100" : "") . "\">
+                <a href=\"register.php\" class=\"nav-link " . ($active === "register" ? "text-active glow" : "") . "\">
                     Register
                 </a>
         ")) . "

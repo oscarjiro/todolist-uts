@@ -110,7 +110,7 @@ export const taskItem = (
                     </a>
                     ${toggleTaskIcon}
                 </div>
-                <div class="text-upperwide">${todoDate}</div>
+                <div class="text-upperwide glow">${todoDate}</div>
             </div>
         </div>
     `;

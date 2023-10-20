@@ -81,11 +81,11 @@
     }
 
     label {
-        @apply text-upperwide;
+        @apply text-upperwide glow;
     }
 
     input {
-        @apply focus:outline-none;
+        @apply focus:outline-none glow;
     }
 
     input[type="text"],
@@ -157,6 +157,7 @@
     .nav-link {
         @apply font-light text-upperwide
                 text-inactive smooth hover:text-active
+                hover:glow
                 text-sm min-[400px]:text-base;
     }
 
@@ -199,7 +200,7 @@
     }
 
     .form-header {
-        @apply text-4xl font-bold tracking-tighter;
+        @apply text-4xl font-bold tracking-tighter glow;
     }
 
     /* INPUT */
@@ -318,7 +319,7 @@
                 min-[350px]:text-6xl
                 min-[400px]:text-7xl
                 min-[500px]:text-8xl 
-                tracking-tighter font-bold;
+                tracking-tighter font-bold glow-wide;
     }
 
     /* ADD */
@@ -356,7 +357,8 @@
         @apply text-active font-semibold 
                 text-lg
                 min-[300px]:text-xl
-                min-[500px]:text-2xl;
+                min-[500px]:text-2xl
+                glow;
     }
 
     .dashboard-footer {
@@ -424,8 +426,8 @@
 
     /* TASK */
     .empty-task {
-        @apply text-center 
-                text-sm
+        @apply text-center glow
+                text-sm 
                 min-[300px]:text-base
                 min-[350px]:text-lg
                 min-[400px]:text-xl
@@ -446,13 +448,13 @@
 
     .task-progress {
         @apply text-upperwide font-normal
-                text-sm
+                text-sm glow
                 min-[350px]:text-base
                 min-[400px]:text-lg;
     }
 
     .task-name {
-        @apply text-2xl
+        @apply text-2xl glow
                 min-[350px]:text-3xl
                 min-[500px]:text-4xl 
                 font-bold;
@@ -470,12 +472,12 @@
                 min-[500px]:min-h-[80px]
                 min-[500px]:w-20
                 min-[500px]:h-20
-                cursor-pointer
+                cursor-pointer glow
                 smooth hover:scale-90;
     }
 
     .task-desc {
-        @apply text-sm
+        @apply text-sm glow
                 min-[350px]:text-base
                 min-[400px]:text-lg;
     }
@@ -498,7 +500,7 @@
     .task-action-icon {
         @apply w-5 h-5
                 min-[400px]:w-6 min-[400px]:h-6
-                cursor-pointer
+                cursor-pointer glow
                 smooth hover:rotate-[15deg];
     }
 }
@@ -506,7 +508,11 @@
 @layer utilities {
     /* GENERAL */
     .glow {
-        @apply drop-shadow-[0_0_10px_rgba(255,255,255,0.7)];
+        @apply drop-shadow-[0_0_10px_rgba(255,255,255,0.5)];
+    }
+
+    .glow-wide {
+        @apply drop-shadow-[0_0_20px_rgba(255,255,255,0.5)];
     }
 
     .smooth {

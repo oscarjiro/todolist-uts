@@ -82,7 +82,7 @@ if ($post_req) {
 <html lang="en">
 
 <head>
-    <?= head("Edit task") ?>
+    <?= head("Edit task \"$original_name\"") ?>
     <script src="static/scripts/edit.js" type="module"></script>
 </head>
 
@@ -96,7 +96,7 @@ if ($post_req) {
         <form id="editForm" action="edit.php?id=<?= $param_task_id ?>" method="post">
             <!-- Heading -->
             <h1 class="form-header">
-                Edit task.
+                Edit task <u class="font-light glow"><?= $original_name ?></u>.
             </h1>
 
             <!-- Name -->
