@@ -5,6 +5,7 @@ import {
     errorMessageId,
     onlyFillInputHandler,
     onlyFillShowError,
+    fadeInMain,
 } from "./utils.js";
 import { errorMessage, emptyError } from "./components.js";
 
@@ -22,6 +23,9 @@ $(document).ready(() => {
 
     // Form submission handler
     $("#loginForm").submit((event) => formHandler(event));
+
+    // Fade in main
+    fadeInMain();
 });
 
 // Elements

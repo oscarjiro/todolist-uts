@@ -17,9 +17,10 @@ if ($post_req) {
     // Check form data validity
     $valid_username = strlen($username) > 0;
     $valid_password = strlen($password) > 0;
+    $valid_form = $valid_username && $valid_password;
 
     // Proceed to insert data if all is valid
-    if ($valid_form = $valid_username && $valid_password) {
+    if ($valid_form) {
         // Successful authentication boolean
         $valid_credentials = true;
         $query_success = true;
@@ -36,9 +37,11 @@ if ($post_req) {
             $query_success = false;
             $database_error = $e->getMessage();
         }
+        $select_result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $valid_credentials = $select_result && count($select_result) > 0;
 
         // Try to login
-        if ($query_success && $valid_credentials = ($select_result = $stmt->fetch(PDO::FETCH_ASSOC)) ? true : false) {
+        if ($query_success && $valid_credentials) {
             $hashed_password = $select_result["password"];
             if ($valid_credentials = password_verify($password, $hashed_password)) {
                 $_SESSION["is_authenticated"] = true;
@@ -65,7 +68,7 @@ if ($post_req) {
     <?= navbar(false, "login") ?>
 
     <!-- Main -->
-    <main class="form-main">
+    <main class="form-main opacity-0">
         <!-- Form -->
         <form id="loginForm" action="login.php" method="post">
             <!-- Heading -->

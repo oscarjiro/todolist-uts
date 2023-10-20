@@ -12,7 +12,7 @@ $username = $_SESSION["username"];
 <html lang="en">
 
 <head>
-    <?= head() ?>
+    <?= head("Home") ?>
     <script src="static/scripts/index.js" type="module"></script>
 </head>
 
@@ -38,7 +38,7 @@ $username = $_SESSION["username"];
                     Today's <?= get_curday() ?>
                 </div>
                 <div class="dashboard-footer">
-                    <?= get_curfdate() ?>
+                    <?= convert_date(get_curdate())  ?>
                 </div>
             </div>
 

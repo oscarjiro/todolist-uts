@@ -8,6 +8,7 @@ import {
     errorMessageId,
     onInputHandler,
     showError,
+    fadeInMain,
 } from "./utils.js";
 import { errorMessage, emptyError } from "./components.js";
 
@@ -72,6 +73,9 @@ $(document).ready(() => {
 
     // Form submission handler
     $("#registerForm").submit((event) => formHandler(event));
+
+    // Fade in main
+    fadeInMain();
 });
 
 // Elements

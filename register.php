@@ -77,7 +77,7 @@ if ($post_req) {
     <?= navbar(false, "register") ?>
 
     <!-- Main -->
-    <main class="form-main">
+    <main class="form-main opacity-0">
         <!-- Form -->
         <form id="registerForm" action="register.php" method="post">
             <!-- Heading -->

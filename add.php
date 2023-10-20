@@ -9,7 +9,7 @@ $post_req = $_SERVER["REQUEST_METHOD"] === "POST";
 if ($post_req) {
     // Collect POST data
     $name = clean_data($_POST["name"]);
-    $description = clean_data($_POST["description"]);
+    $description = $description = $_POST["description"] ? clean_data($_POST["description"]) : null;
     $date = clean_data($_POST["date"]);
     $progress = clean_data($_POST["progress"]);
     $dependent = isset($_POST["dependentTask"]) ? (int) clean_data($_POST["dependentTask"]) : null;
@@ -20,9 +20,10 @@ if ($post_req) {
     $valid_date = check_date($date);
     $valid_progress = in_array($progress, TASK_PROGRESS) && $progress !== "Completed";
     $valid_dependent = (!$dependent && $progress !== "Waiting on") || is_int($dependent);
+    $valid_form = $valid_name && $valid_description && $valid_date && $valid_progress && $valid_dependent;
 
     // Proceed to insert data if all is valid 
-    if ($valid_form = $valid_name && $valid_description && $valid_date && $valid_progress && $valid_dependent) {
+    if ($valid_form) {
         // Boolean
         $query_success = true;
         $valid_dependent_task = true;
@@ -85,7 +86,7 @@ if ($post_req) {
 <html lang="en">
 
 <head>
-    <?= head() ?>
+    <?= head("Add a new task") ?>
     <script src="static/scripts/add.js" type="module"></script>
 </head>
 
@@ -109,20 +110,10 @@ if ($post_req) {
                 <?= ($post_req && !$valid_name) ? error_message(is_empty($name) ? empty_error("task name") : ERROR["task_name"], "name") : "" ?>
             </div>
 
-            <!-- Description -->
-            <div class="input-ctr space-y-3">
-                <label for="description">Description <span class="text-optional">Optional</span></label>
-                <div id="descriptionContainer" class="relative">
-                    <textarea name="description" id="description" rows="3" spellcheck="false"></textarea>
-                    <div class="textarea-counter"><span id="textareaCount">0</span>/<?= TASKDESC_MAX_LENGTH ?></div>
-                </div>
-                <?= ($post_req && !$valid_description) ? error_message(ERROR["task_description"], "description") : "" ?>
-            </div>
-
             <!-- Todo Date -->
             <div class="input-ctr">
                 <label for="date">Todo Date</label>
-                <input type="date" id="date" name="date">
+                <input type="date" id="date" name="date" value="<?= get_curdate() ?>">
                 <?= ($post_req && !$valid_date) ? error_message(is_empty($date) ? empty_error("to-do date") : ERROR["task_date"], "date") : "" ?>
             </div>
 
@@ -155,6 +146,15 @@ if ($post_req) {
                 <?= ($post_req && (!$valid_dependent || ($valid_form && !$valid_dependent_task))) ? error_message(is_empty($dependent) ? empty_error("task dependent") : ERROR["task_dependent"], "dependentTask") : "" ?>
             </div>
 
+            <!-- Description -->
+            <div class="input-ctr space-y-3">
+                <label for="description">Description <span class="text-optional">Optional</span></label>
+                <div id="descriptionContainer" class="relative">
+                    <textarea name="description" id="description" rows="3" spellcheck="false"></textarea>
+                    <div class="textarea-counter"><span id="textareaCount">0</span>/<?= TASKDESC_MAX_LENGTH ?></div>
+                </div>
+                <?= ($post_req && !$valid_description) ? error_message(ERROR["task_description"], "description") : "" ?>
+            </div>
 
             <!-- Submit -->
             <button type="submit" class="button-blue">Add task</button>

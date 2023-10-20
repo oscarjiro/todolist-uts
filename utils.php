@@ -83,9 +83,9 @@ function greet()
 }
 
 // Get current date
-function get_curfdate()
+function get_curdate()
 {
-    return date("j F Y");
+    return date("Y-m-d");
 }
 
 // Get current day
@@ -98,7 +98,7 @@ function get_curday()
 function convert_date($date)
 {
     $date = strtotime($date);
-    return date("l", $date) . ", " .  date("j F Y", $date);
+    return date("j F Y", $date);
 }
 
 // Check if todo date is valid
