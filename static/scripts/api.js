@@ -53,3 +53,23 @@ export const taskAction = async (taskId, action) => {
         };
     }
 };
+
+// Send password reset request
+export const sendPasswordResetLink = async (email) => {
+    try {
+        const response = await fetch("api/request_password_reset.php", {
+            method: "POST",
+            body: JSON.stringify({
+                email: email,
+            }),
+            headers: { "Content-Type": "application/json" },
+        });
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        return {
+            ok: false,
+            error: { message: "An error occured. Please try again." },
+        };
+    }
+};

@@ -3298,6 +3298,10 @@ img {
   color: rgb(59 130 246 / var(--tw-text-opacity));
 }
 
+.text-\[rgb\(var\(--green-rgb\)\)\] {
+  color: rgb(var(--green-rgb));
+}
+
 .underline {
   text-decoration-line: underline;
 }
@@ -3779,6 +3783,10 @@ img {
   color: rgb(var(--done-rgb));
 }
 
+.\[hostname\:port\] {
+  hostname: port;
+}
+
 :root {
   /* NAVBAR HEIGHT */
   --navbar-height: 80px;
@@ -3897,6 +3905,10 @@ img {
 }
 
 @media (min-width: 700px) {
+  .min-\[700px\]\:w-\[600px\] {
+    width: 600px;
+  }
+
   .min-\[700px\]\:text-left {
     text-align: left;
   }

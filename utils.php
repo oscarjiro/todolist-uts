@@ -26,7 +26,7 @@ function logout()
 {
     $route = get_route();
     session_destroy();
-    if ($route !== "login.php" && $route !== "register.php" && $route !== "forgot-password.php") {
+    if ($route !== "login.php" && $route !== "register.php" && $route !== "forgot-password.php" && $route !== "request_password_reset.php" && $route !== "reset-password.php") {
         header("Location: login.php");
         exit;
     } else {
