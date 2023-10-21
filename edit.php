@@ -26,8 +26,16 @@ try {
     exit;
 }
 
-// If successful, get result
+// Get result
 $select_result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// If empty, redirect to index
+if (!$select_result || count($select_result) === 0) {
+    header("Location: index.php");
+    exit;
+}
+
+// If successful, get column values
 $original_name = $select_result["name"];
 $original_date = $select_result["todo_date"];
 $original_description = $select_result["description"];

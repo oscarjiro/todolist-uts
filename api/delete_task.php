@@ -17,11 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] !== "DELETE") {
 // Get task ID and session user
 $username = $_SESSION["username"];
 $data = json_decode(file_get_contents("php://input"), true);
-if (
-    $data === null ||
-    !isset($data["taskId"]) ||
-    !$task_id = clean_data($data["taskId"])
-) {
+$task_id = isset($data["taskId"]) ? clean_data($data["taskId"]) : null;
+if ($data === null || !$task_id) {
     echo json_encode([
         "ok" => false,
         "error" => ["message" => "No task specified to delete."],

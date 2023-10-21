@@ -10,19 +10,19 @@ if (is_authenticated()) {
 $post_req = $_SERVER["REQUEST_METHOD"] === "POST";
 if ($post_req) {
     // Collect POST data
-    $name = clean_data($_POST["name"]);
     $username = clean_data($_POST["username"]);
+    $email = clean_data($_POST["email"]);
     $password = clean_data($_POST["password"]);
     $confirm_password = clean_data($_POST["confirmPassword"]);
 
     // Check form validity
-    $valid_name = strlen($name) > 0 && strlen($name) <= NAME_MAX_LENGTH;
     $valid_username = preg_match(USERNAME_REGEXP, $username);
+    $valid_email = strlen($email) > 0 && strlen($email) <= EMAIL_MAX_LENGTH && preg_match(EMAIL_REGEXP, $email);
     $valid_password = preg_match(PASSWORD_REGEXP, $password);
     $valid_confirm_password = $password === $confirm_password;
 
     // Proceed to insert data if all is valid
-    if ($valid_form = $valid_name && $valid_username && $valid_password && $valid_confirm_password) {
+    if ($valid_form = $valid_email && $valid_username && $valid_password && $valid_confirm_password) {
         // Boolean
         $user_exists = false;
         $query_success = true;
@@ -32,7 +32,7 @@ if ($post_req) {
                         WHERE username = :username";
         try {
             $stmt = $pdo->prepare($select_query);
-            $stmt->bindParam(":username", $username . PDO::PARAM_STR);
+            $stmt->bindParam(":username", $username, PDO::PARAM_STR);
             $stmt->execute();
         } catch (PDOException $e) {
             $query_success = false;
@@ -42,12 +42,12 @@ if ($post_req) {
         // If user does not exist yet, insert user to database
         if (!$user_exists = $query_success && ($select_result = $stmt->fetch(PDO::FETCH_ASSOC))) {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $insert_query = "INSERT INTO User (username, name, password)
-                            VALUES (:username, :name, :password)";
+            $insert_query = "INSERT INTO User (username, email, password)
+                            VALUES (:username, :email, :password)";
             try {
                 $stmt = $pdo->prepare($insert_query);
                 $stmt->bindParam(":username", $username, PDO::PARAM_STR);
-                $stmt->bindParam(":name", $name, PDO::PARAM_STR);
+                $stmt->bindParam(":email", $email, PDO::PARAM_STR);
                 $stmt->bindParam(":password", $hashed_password, PDO::PARAM_STR);
                 $stmt->execute();
                 $_SESSION["is_authenticated"] = true;
@@ -85,18 +85,18 @@ if ($post_req) {
                 Sign up to get started.
             </h1>
 
-            <!-- Name -->
-            <div class="input-ctr">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" spellcheck="false">
-                <?= ($post_req && !$valid_name) ? error_message(is_empty($name) ? empty_error("name") : ERROR["name"], "name") : "" ?>
-            </div>
-
             <!-- Username -->
             <div class="input-ctr">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" spellcheck="false">
                 <?= ($post_req && (!$valid_username || $user_exists)) ? error_message(!$valid_username ? (is_empty($username) ? empty_error("username") : ERROR["username"]) : "Username already exists.", "username") : "" ?>
+            </div>
+
+            <!-- Email -->
+            <div class="input-ctr">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" spellcheck="false">
+                <?= ($post_req && !$valid_email) ? error_message(is_empty($email) ? empty_error("email") : ERROR["email"], "email") : "" ?>
             </div>
 
             <!-- Password -->

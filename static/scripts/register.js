@@ -1,7 +1,6 @@
 import { ERROR } from "./const.js";
 import {
     getValue,
-    checkName,
     checkUsername,
     checkPassword,
     toggleViewPassword,
@@ -9,22 +8,11 @@ import {
     onInputHandler,
     showError,
     fadeInMain,
+    checkEmail,
 } from "./utils.js";
 import { errorMessage, emptyError } from "./components.js";
 
 $(document).ready(() => {
-    // Name on input check
-    name.element.on("input", () =>
-        onInputHandler(
-            name.element,
-            name.element,
-            checkName,
-            name.error,
-            ERROR.name,
-            name.errorId
-        )
-    );
-
     // Username on input check
     username.element.on("input", () => {
         onInputHandler(
@@ -36,6 +24,18 @@ $(document).ready(() => {
             username.errorId
         );
     });
+
+    // Email on input check
+    email.element.on("input", () =>
+        onInputHandler(
+            email.element,
+            email.element,
+            checkEmail,
+            email.error,
+            ERROR.email,
+            email.errorId
+        )
+    );
 
     // Password on input check
     password.element.on("input", () => {
@@ -80,17 +80,17 @@ $(document).ready(() => {
 
 // Elements
 const inputs = {
-    name: {
-        element: $("#name"),
-        error: errorMessage(ERROR.name, "name"),
-        emptyError: errorMessage(emptyError("name"), "name"),
-        errorId: errorMessageId("name"),
-    },
     username: {
         element: $("#username"),
         error: errorMessage(ERROR.username, "username"),
         emptyError: errorMessage(emptyError("username"), "username"),
         errorId: errorMessageId("username"),
+    },
+    email: {
+        element: $("#email"),
+        error: errorMessage(ERROR.email, "email"),
+        emptyError: errorMessage(emptyError("email"), "email"),
+        errorId: errorMessageId("email"),
     },
     password: {
         element: $("#password"),
@@ -108,7 +108,7 @@ const inputs = {
 };
 
 // Destructure
-const { name, username, password, confirmPassword } = inputs;
+const { username, email, password, confirmPassword } = inputs;
 
 // Ensure password confirmation matches
 const handleConfirmPassword = (passwordValue, confirmPasswordValue) => {
@@ -123,33 +123,22 @@ const handleConfirmPassword = (passwordValue, confirmPasswordValue) => {
 // Form handler
 const formHandler = (event) => {
     // Check for form validity
-    const nameValue = getValue(name.element);
+    const emailValue = getValue(email.element);
     const usernameValue = getValue(username.element);
     const passwordValue = getValue(password.element);
-    const validName = checkName(nameValue);
     const validUsername = checkUsername(usernameValue);
+    const validEmail = checkEmail(emailValue);
     const validPassword = checkPassword(passwordValue);
     const validConfirmPassword =
         getValue(confirmPassword.element) === passwordValue;
     const validForm =
-        validName && validUsername && validPassword && validConfirmPassword;
+        validEmail && validUsername && validPassword && validConfirmPassword;
 
     // If invalid, prevent submission
     if (!validForm) {
         event.preventDefault();
 
         // Add errors to invalid fields
-        showError(
-            nameValue,
-            name.element,
-            validName,
-            "name",
-            name.error,
-            name.emptyError,
-            ERROR.name,
-            name.errorId
-        );
-
         showError(
             usernameValue,
             username.element,
@@ -159,6 +148,17 @@ const formHandler = (event) => {
             username.emptyError,
             ERROR.username,
             username.errorId
+        );
+
+        showError(
+            emailValue,
+            email.element,
+            validEmail,
+            "email",
+            email.error,
+            email.emptyError,
+            ERROR.email,
+            email.errorId
         );
 
         showError(

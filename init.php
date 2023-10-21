@@ -68,14 +68,20 @@ try {
 try {
     $create_user_query = "CREATE TABLE IF NOT EXISTS User (
                             username VARCHAR(" . USERNAME_MAX_LENGTH . ") PRIMARY KEY NOT NULL,
-                            name VARCHAR(" . NAME_MAX_LENGTH . ") NOT NULL,
+                            email VARCHAR(" . EMAIL_MAX_LENGTH . ") NOT NULL,
                             password VARCHAR(255) NOT NULL,
+                            reset_token_hash VARCHAR(64) UNIQUE,
+                            reset_token_expires_at DATETIME,
                             CONSTRAINT validate_username CHECK (
                                 username REGEXP :username_regexp
+                            ),
+                            CONSTRAINT validate_email CHECK (
+                                email REGEXP :email_regexp
                             )
                         )";
     $stmt = $pdo->prepare($create_user_query);
     $stmt->bindValue(":username_regexp", trim(USERNAME_REGEXP, "/"), PDO::PARAM_STR);
+    $stmt->bindValue(":email_regexp", trim(EMAIL_REGEXP, "/"), PDO::PARAM_STR);
     $stmt->execute();
 } catch (PDOException $e) {
     redirect_error();

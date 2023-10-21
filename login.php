@@ -96,6 +96,7 @@ if ($post_req) {
                     </div>
                 </div>
                 <?= ($post_req && !$valid_password) ? error_message(empty_error("password"), "password") : "" ?>
+                <a href="forgot-password.php" class="text-link">Forgot password?</a>
             </div>
 
             <!-- Submit -->

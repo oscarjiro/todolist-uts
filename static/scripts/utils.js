@@ -1,11 +1,12 @@
 import {
     USERNAME_REGEXP,
     PASSWORD_REGEXP,
-    NAME_MAX_LENGTH,
     TASK_PROGRESS,
     TASKNAME_MAX_LENGTH,
     TASKDESC_MAX_LENGTH,
     TASK_TODODATE_REGEXP,
+    EMAIL_MAX_LENGTH,
+    EMAIL_REGEXP,
 } from "./const.js";
 import {
     emptyError,
@@ -50,9 +51,11 @@ export const toggleViewPassword = (toggle, input) => {
 // Get error message ID
 export const errorMessageId = (name) => `#${name}ErrorMessage`;
 
-// Check username
-export const checkName = (name) =>
-    name.length > 0 && name.length <= NAME_MAX_LENGTH;
+// Check email
+export const checkEmail = (email) =>
+    email.length > 0 &&
+    email.length <= EMAIL_MAX_LENGTH &&
+    EMAIL_REGEXP.test(email);
 
 // Check username
 export const checkUsername = (username) => USERNAME_REGEXP.test(username);
