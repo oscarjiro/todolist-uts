@@ -68,7 +68,7 @@ try {
 try {
     $create_user_query = "CREATE TABLE IF NOT EXISTS User (
                             username VARCHAR(" . USERNAME_MAX_LENGTH . ") PRIMARY KEY NOT NULL,
-                            email VARCHAR(" . EMAIL_MAX_LENGTH . ") NOT NULL,
+                            email VARCHAR(" . EMAIL_MAX_LENGTH . ") NOT NULL UNIQUE,
                             password VARCHAR(255) NOT NULL,
                             reset_token_hash VARCHAR(64) UNIQUE,
                             reset_token_expires_at DATETIME,
