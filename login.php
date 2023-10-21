@@ -104,14 +104,12 @@ if ($post_req) {
 
             <!-- Form error message -->
             <?=
-            (isset($token_expired_message) || ($post_req && ($valid_form && (!$valid_credentials || !$query_success)))) ?
+            ($post_req && ($valid_form && (!$valid_credentials || !$query_success))) ?
                 ("<div class=\"text-center\">" .
                     error_message(
-                        isset($token_expired_message)
-                            ? $token_expired_message
-                            : (!$valid_credentials
-                                ? "Invalid username and/or password."
-                                : ERROR["general"]),
+                        !$valid_credentials
+                            ? "Invalid username and/or password."
+                            : ERROR["general"],
                         "form"
                     ) .
                     "</div>"

@@ -50,7 +50,7 @@ try {
     }
 } catch (PDOException $e) {
     redirect_error();
-    $error_scope = "creating database";
+    $error_scope = "An error occured during setting up database";
     return;
 }
 

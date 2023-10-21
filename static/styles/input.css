@@ -182,8 +182,22 @@
 
     /* DATABASE ERROR */
     .database-error {
-        @apply text-center text-2xl font-normal 
-                py-4 px-52 space-y-4;
+        @apply text-center font-normal 
+                py-4 space-y-4
+                w-full
+                min-[600px]:px-8
+                min-[700px]:px-12
+                min-[800px]:px-16
+                min-[900px]:px-24
+                min-[1000px]:px-32
+                min-[1100px]:px-40
+                min-[1200px]:px-52
+                text-sm
+                min-[300px]:text-base
+                min-[350px]:text-lg
+                min-[400px]:text-xl
+                min-[500px]:text-xl
+                min-[600px]:text-2xl;
     }
 
     .database-error-msg {
