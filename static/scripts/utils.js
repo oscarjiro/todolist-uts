@@ -31,10 +31,6 @@ export const capitalizeFirst = (string) =>
 // Check if empty string
 export const isEmpty = (string) => string.length === 0;
 
-// Convert to camel case
-export const toCamelCase = (string) =>
-    string.replace(/(\s|-|_)(.)/g, (_, separator, char) => char.toUpperCase());
-
 // Clean text input
 export const cleanInput = (input) => input.trim();
 
