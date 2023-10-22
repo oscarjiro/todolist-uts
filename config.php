@@ -47,3 +47,6 @@ define("ERROR", [
     "task_dependent" => "Selected task is invalid or does not exist.",
     "general" => "An error occured. Please try again.",
 ]);
+
+// API routes
+define("API_ROUTES", ["delete_task.php", "get_tasks.php", "request_password_reset.php", "task_action.php"]);
