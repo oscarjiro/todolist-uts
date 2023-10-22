@@ -4,14 +4,22 @@
 require_once(__DIR__ . "/../init.php");
 header("Content-Type: application/json");
 
-// Redirect if not GET method
+// Ensure authenticated
+if (!is_authenticated()) {
+    echo json_encode([
+        "ok" => false,
+        "error" => ["message" => "User must be logged in."],
+    ]);
+    return;
+}
+
+// Ensure GET method
 if ($_SERVER["REQUEST_METHOD"] !== "PUT") {
     echo json_encode([
         "ok" => false,
         "error" => ["message" => "PUT request is required."],
     ]);
-    header("Location: /webprog/uts-lab/index.php");
-    exit;
+    return;
 }
 
 // Get session user, action, and task ID

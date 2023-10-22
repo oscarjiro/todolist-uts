@@ -4,14 +4,22 @@
 require_once(__DIR__ . "/../init.php");
 header("Content-Type: application/json");
 
-// Redirect if not DELETE method
+// Ensure authenticated
+if (!is_authenticated()) {
+    echo json_encode([
+        "ok" => false,
+        "error" => ["message" => "User must be logged in."],
+    ]);
+    return;
+}
+
+// Ensure DELETE method
 if ($_SERVER["REQUEST_METHOD"] !== "DELETE") {
     echo json_encode([
         "ok" => false,
         "error" => ["message" => "DELETE request is required."],
     ]);
-    header("Location: /webprog/uts-lab/index.php");
-    exit;
+    return;
 }
 
 // Get task ID and session user
