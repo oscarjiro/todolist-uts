@@ -9,7 +9,7 @@ $post_req = $_SERVER["REQUEST_METHOD"] === "POST";
 if ($post_req) {
     // Collect POST data
     $name = clean_data($_POST["name"]);
-    $description = $description = $_POST["description"] ? clean_data($_POST["description"]) : null;
+    $description = $_POST["description"] ? clean_data($_POST["description"]) : null;
     $date = clean_data($_POST["date"]);
     $progress = clean_data($_POST["progress"]);
     $dependent = isset($_POST["dependentTask"]) ? (int) clean_data($_POST["dependentTask"]) : null;
@@ -119,7 +119,7 @@ if ($post_req) {
 
             <!-- Current Progress -->
             <div class="input-ctr">
-                <label for="date">Current Progress</label>
+                <label for="progress">Current Progress</label>
                 <div id="progressChoices" class="input-progress-choices-ctr">
                     <?php
                     foreach (TASK_PROGRESS as $progress) {
