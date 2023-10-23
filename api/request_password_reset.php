@@ -4,14 +4,22 @@
 require_once(__DIR__ . "/../init.php");
 header("Content-Type: application/json");
 
-// Redirect if not POST method
-if ($_SERVER["REQUEST_METHOD"] !== "POST" || is_authenticated()) {
+// Ensure not authenticated
+if (is_authenticated()) {
+    echo json_encode([
+        "ok" => false,
+        "error" => ["message" => "User should not be logged in."],
+    ]);
+    return;
+}
+
+// Ensure POST method
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     echo json_encode([
         "ok" => false,
         "error" => ["message" => "POST request is required."],
     ]);
-    header("Location: /webprog/uts-lab/index.php");
-    exit;
+    return;
 }
 
 // Get posted email
