@@ -14,6 +14,7 @@ $username = $_SESSION["username"];
 <head>
     <?= head("Home") ?>
     <script src="static/scripts/index.js" type="module"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body>
@@ -85,10 +86,14 @@ $username = $_SESSION["username"];
             </div>
 
             <!-- Tasks -->
-            <div id="tasksContainer" class="space-y-6 smooth">
+            <div id="tasksContainer" class="space-y-6 smooth" data-aos="fade-right">
             </div>
         </section>
     </main>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
 </body>
 
 </html>

@@ -1486,6 +1486,7 @@ img {
 
 /* SECTION */
 
+
 .section-title-ctr {
   position: relative;
   width: 100%;
@@ -1724,7 +1725,71 @@ img {
 }
 
 .task {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 0.5s, transform 0.5s;
   width: 100%;
+  display : none;
+}
+
+@media (min-width: 300px) {
+  .task {
+    display: block; 
+  }
+}
+@media (min-width: 350px) {
+  .task {
+    display: block; 
+  }
+}
+@media (min-width: 400px) {
+  .task {
+    display: block; 
+  }
+}
+@media (min-width: 500px) {
+  .task {
+    display: block; 
+  }
+}
+@media (min-width: 767px) {
+  .task {
+    display: block; 
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-in-out;
+  transition: opacity 0.5s, transform 0.5s;
+  opacity: 0; /* Set elemen menjadi tidak terlihat pada awalnya */
+  transform: translateX(0px); /* Pindahkan elemen ke kiri pada awalnya */
+}
+
+.slide-in.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@keyframes slideInLeftToCenter {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .task > :not([hidden]) ~ :not([hidden]) {
@@ -1743,6 +1808,11 @@ img {
   padding-bottom: 1rem;
   transition-duration: 300ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.task.action {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
 }
 
 .task *::-moz-selection {

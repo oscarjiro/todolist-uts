@@ -65,6 +65,89 @@ export const taskItem = (
     description = null,
     dependentName = null
 ) => {
+// Animation
+    $(document).ready(function() {
+        // Dapatkan semua elemen task
+        const taskElements = document.querySelectorAll('.task');
+        const sectionIds = ["allSection", "notStartedSection", "waitingOnSection", "inProgressSection", "completedSection"];
+    
+        // Fungsi untuk mendeteksi apakah elemen dalam jendela tampilan
+        function isElementInViewport(el) {
+            var rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+    
+        // Fungsi untuk mengaktifkan elemen "slide-in" saat mereka masuk dalam tampilan
+        function activateSlideInOnScroll() {
+            const slideInElements = document.querySelectorAll('.slide-in');
+    
+            taskElements.forEach((taskElement, index) => {
+                if (isElementInViewport(taskElement)) {
+                    if (!taskStatus[taskElement.id]) {
+                        taskElement.classList.add('active');
+                        taskElement.style.opacity = 1;
+                        taskElement.style.animation = 'slideInLeftToCenter 1.5s ease-in-out';
+                        taskStatus[taskElement.id] = true;
+                    }
+                }
+            });
+        }
+    
+        // Nonaktifkan elemen slide-in di semua section
+        function disableSlideInInSection(sectionId) {
+            const sectionElement = document.getElementById(sectionId);
+            if (sectionElement) {
+                const slideInElementsInSection = sectionElement.querySelectorAll('.slide-in');
+                slideInElementsInSection.forEach((taskElement) => {
+                    taskElement.classList.remove('active');
+                    taskElement.style.opacity = 1;
+                });
+            }
+        }
+    
+        // Nonaktifkan elemen slide-in di semua section
+        function disableSlideInInAllSections() {
+            sectionIds.forEach((sectionId) => {
+                disableSlideInInSection(sectionId);
+            });
+        }
+    
+        // Event listener untuk setiap section
+        sectionIds.forEach((sectionId) => {
+            const sectionElement = document.getElementById(sectionId);
+            sectionElement.addEventListener('click', () => {
+                disableSlideInInSection(sectionId);
+            });
+        });
+    
+        const taskStatus = {};
+    
+        // Mendeteksi jumlah elemen "task"
+        const numberOfTasks = taskElements.length;
+    
+            // Jika ada 3 elemen atau lebih, aktifkan elemen saat scroll
+    if (numberOfTasks >= 3) {
+        window.addEventListener('scroll', activateSlideInOnScroll);
+    }
+
+    // Tampilkan 3 dari 5 task pada awalnya, dan aktifkan task ke-4 dan ke-5 saat scroll
+    if (numberOfTasks > 0) {
+        taskElements.forEach((taskElement, index) => {
+            if (index < 3) {
+                taskElement.classList.add('active');
+                taskElement.style.opacity = 1;
+                taskElement.style.animation = 'slideInLeftToCenter 1.5s ease-in-out';
+            }
+        });
+    }
+    });
+    
+
     const taskThemeClass =
         progress === "Waiting on"
             ? "task-waitingon"
@@ -93,7 +176,7 @@ export const taskItem = (
             : "";
 
     return `
-        <div id="task${id}" class="task ${taskThemeClass}">
+        <div id="task${id}" class="task ${taskThemeClass} slide-in" >
             <div class="task-header">
                 <div>
                     <div class="task-progress">${progress}${dependentNameElement}</div>
