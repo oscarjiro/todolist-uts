@@ -268,6 +268,21 @@ const activatePage = async (section = null, reload = false) => {
         }
     );
 
+    // Add intersection observer to each task
+    const showOnScroll = (task) => {
+        const io = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    task.classList.add("slide-right-smooth");
+                    observer.disconnect();
+                }
+            });
+        });
+
+        io.observe(task);
+    };
+    document.querySelectorAll(".task").forEach(showOnScroll);
+
     // Update tasks count if reload is true
     updateTasksCount();
 };

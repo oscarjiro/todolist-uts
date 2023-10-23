@@ -453,7 +453,8 @@
         @apply bg-[rgb(var(--gray-rgb))] rounded-xl 
                 selection:text-[rgb(var(--gray-rgb))]
                 px-6 min-[350px]:px-8 py-4 w-full space-y-5
-                overflow-hidden smooth;
+                overflow-hidden smooth
+                opacity-0;
     }
 
     .task-header {
@@ -594,6 +595,22 @@
     .task-done {
         @apply bg-[rgb(var(--done-rgb))]
                 selection:text-[rgb(var(--done-rgb))];
+    }
+
+    /* ANIMATION */
+    .slide-right-smooth {
+        animation: slideRight 1s ease-in-out forwards;
+    }
+}
+
+@keyframes slideRight {
+    0% {
+        opacity: 0;
+        transform: translateX(-75%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
     }
 }
 
