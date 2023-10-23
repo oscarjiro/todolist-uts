@@ -1486,6 +1486,7 @@ img {
 
 /* SECTION */
 
+
 .section-title-ctr {
   position: relative;
   width: 100%;
@@ -1723,10 +1724,6 @@ img {
   }
 }
 
-.task {
-  width: 100%;
-}
-
 .task > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));
@@ -1743,6 +1740,11 @@ img {
   padding-bottom: 1rem;
   transition-duration: 300ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.task.action {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
 }
 
 .task *::-moz-selection {

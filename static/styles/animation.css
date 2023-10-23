@@ -1,0 +1,67 @@
+.task {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 0.5s, transform 0.5s;
+    width: 100%;
+    display : none;
+  }
+  
+  @media (min-width: 300px) {
+    .task {
+      display: block; 
+    }
+  }
+  @media (min-width: 350px) {
+    .task {
+      display: block; 
+    }
+  }
+  @media (min-width: 400px) {
+    .task {
+      display: block; 
+    }
+  }
+  @media (min-width: 500px) {
+    .task {
+      display: block; 
+    }
+  }
+  @media (min-width: 767px) {
+    .task {
+      display: block; 
+    }
+  }
+  
+  .slide-in {
+    animation: slideIn 0.5s ease-in-out;
+    transition: opacity 0.5s, transform 0.5s;
+    opacity: 0; /* Set elemen menjadi tidak terlihat pada awalnya */
+    transform: translateX(0px); /* Pindahkan elemen ke kiri pada awalnya */
+  }
+  
+  .slide-in.active {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  @keyframes slideInLeftToCenter {
+    0% {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translateX(-100px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
