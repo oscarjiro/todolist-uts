@@ -136,7 +136,7 @@ if ($post_req) {
             <?=
             ($post_req && $valid_form && !$query_success) ?
                 ("<div class=\"text-center\">" .
-                    error_message(ERROR["general_db"], "form") .
+                    error_message(ERROR["general"], "form") .
                     "</div>"
                 ) : ""
             ?>
